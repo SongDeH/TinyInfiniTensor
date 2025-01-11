@@ -20,6 +20,7 @@ TEST(Concat, NativeCpu) {
     t3->setData(OneGenerator());
 
     runtime->run(g);
+    printf("op->getOutput()->getDims()[2]=%d\n", op->getOutput()->getDims()[2]);
     EXPECT_TRUE(op->getOutput()->equalData(
         vector<float>{0, 1, 2, 1, 1, 1, 3, 4,  5,  1, 1, 1,
                       6, 7, 8, 1, 1, 1, 9, 10, 11, 1, 1, 1}));

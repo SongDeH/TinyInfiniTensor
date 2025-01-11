@@ -29,6 +29,7 @@ namespace infini {
     // =================================== 作业 ===================================
 
   public:
+    std::map<size_t, size_t> free_blocks;
     Allocator(Runtime runtime);
 
     virtual ~Allocator();
