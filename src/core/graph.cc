@@ -175,10 +175,17 @@ namespace infini
             for (const auto &output : op->getOutputs())
                 usedFuid.insert(output->getFuid());
         }
-        auto it = std::remove_if(tensors.begin(), tensors.end(),
-                                 [&](const Tensor &tensor)
-                                 { return usedFuid.find(tensor->getFuid()) == usedFuid.end(); });
-        tensors.erase(it, tensors.end());
+        // auto it = std::remove_if(tensors.begin(), tensors.end(),
+        //                          [&](const Tensor &tensor)
+        //                          { return usedFuid.find(tensor->getFuid()) == usedFuid.end(); });
+        // tensors.erase(it, tensors.end());
+        for(auto it = tensors.begin(); it != tensors.end(); )
+        {
+            if (usedFuid.find((*it)->getFuid()) == usedFuid.end()) // 如果tensor的fuid不在usedFuid中，则删除该tensor
+                it = tensors.erase(it);
+            else
+                ++it;
+        }
     }
 
     Tensor GraphObj::getTensor(int fuid) const
